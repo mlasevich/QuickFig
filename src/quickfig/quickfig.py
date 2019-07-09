@@ -165,7 +165,8 @@ class QuickFig(QuickFigNode):
 
     def get_data_type(self, key, test_value=""):
         ''' Get Data Type '''
-        default_def = self._resolver.by_value(test_value)
+        default_def = get_default_definition(
+            None, self._resolver.by_value(test_value))
         return self._defs.get(key, default_def).data_type
 
     def get(self, key, default_value=None, use_definition_default=False):
