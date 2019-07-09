@@ -9,7 +9,7 @@ A lightweight schema-supporting config parser for projects
 
 ## QuickFig Release Notes
 
-* 0.1.0
+* 0.1.1
   * initial version
 
 ## Quick Intro to QuickFig
