@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+
+[scripts]
+test = 'python -m pytest --junitxml ./reports/results.xml --cov-report html --cov-report term --cov-config .coveragerc --cov=src .'
+lint = 'pylint'
+
+[dev-packages]
+pytest-cov = "*"
+pylint = "*"
+mock = "*"
+flake8 = "*"
+
+[packages]
+PyYAML = "*"
+
+[requires]
+python_version = "3.7"
