@@ -7,6 +7,8 @@ import unittest
 
 import yaml
 
+from backports.tempfile import TemporaryDirectory
+
 from . import QuickFig, QuickFigNode
 from .data_types import INT_DATA_TYPE, BOOL_DATA_TYPE, STRING_DATA_TYPE
 
@@ -24,19 +26,8 @@ test:
 '''
 CONFIG = yaml.safe_load(CONFIG_YAML)
 
-CONF_TOP_REPR = '''#QuickFig Config
-
-# str parameter (Default: 'test2string')
-test2 = test2string
-
-# String Parameter (Default: 'first test string')
-test.string = value
-
-# My Integer Parameter (Default: '-1')
-test.int = 1
-
-# float parameter (Default: '-1.0')
-test.float = 1.1
+CONF_TOP_REPR = '''
+#QuickFig Config
 
 # my
 #  multiline
@@ -44,49 +35,62 @@ test.float = 1.1
 #   (Default: 'False')
 test.bool = True
 
-# int parameter (Default: '2')
-test.int2 = 2
-
-# float parameter (Default: '0.0')
-test.float2 = 2.2
-
 # str parameter (Default: '')
 test.dict.item1 = one
 
 # str parameter (Default: '')
 test.dict.item2 = two
 
+# float parameter (Default: '-1.0')
+test.float = 1.1
+
+# float parameter (Default: '0.0')
+test.float2 = 2.2
+
+# My Integer Parameter (Default: '-1')
+test.int = 1
+
+# int parameter (Default: '2')
+test.int2 = 2
+
+# String Parameter (Default: 'first test string')
+test.string = value
+
+# str parameter (Default: 'test2string')
+test2 = test2string
+
 #End QuickFig Config
 '''
 
-CONF_TEST_DICT_REPR = '''#QuickFig Config
+CONF_TEST_DICT_REPR = '''
+#QuickFig Config
 #
 # Path: test
 #
 
-# str parameter (Default: '')
-string = value
-
-# int parameter (Default: '0')
-int = 1
-
-# float parameter (Default: '0.0')
-float = 1.1
-
 # bool parameter (Default: 'False')
 bool = True
-
-# int parameter (Default: '0')
-int2 = 2
-
-# float parameter (Default: '0.0')
-float2 = 2.2
 
 # str parameter (Default: '')
 dict.item1 = one
 
 # str parameter (Default: '')
 dict.item2 = two
+
+# float parameter (Default: '0.0')
+float = 1.1
+
+# float parameter (Default: '0.0')
+float2 = 2.2
+
+# int parameter (Default: '0')
+int = 1
+
+# int parameter (Default: '0')
+int2 = 2
+
+# str parameter (Default: '')
+string = value
 
 #End QuickFig Config
 '''
@@ -140,7 +144,7 @@ class TestQuickFig(unittest.TestCase):
         ''' Test __repr___() '''
         actual = "%s" % self.config
         expected = CONF_TOP_REPR
-        self.assertEqual(actual, expected)
+        self.assertEqual(actual.strip(), expected.strip())
 
     def test_get_definition(self):
         ''' Test get_definition() '''
@@ -161,7 +165,7 @@ class TestQuickFig(unittest.TestCase):
         section = self.config.section('test')
         actual = "%s" % section
         expected = CONF_TEST_DICT_REPR
-        self.assertEqual(actual, expected)
+        self.assertEqual(actual.strip(), expected.strip())
 
     def test_get(self):
         ''' Test get() '''
@@ -245,7 +249,7 @@ class TestQuickFig(unittest.TestCase):
     def test_load_from_non_existent_file(self):
         ''' Testing loading from file '''
         config = QuickFig(definitions=CONFIG_DEF)
-        with tempfile.TemporaryDirectory() as tmpdir:
+        with TemporaryDirectory() as tmpdir:
             filename = os.path.join(tmpdir, "non-existing.conf")
             config.quickfig_load_from_file(filename)
 
@@ -262,7 +266,7 @@ class TestQuickFig(unittest.TestCase):
     def test_load_from_unreadable_file(self):
         ''' Testing loading from file '''
         config = QuickFig(definitions=CONFIG_DEF)
-        with tempfile.TemporaryDirectory() as tmpdir:
+        with TemporaryDirectory() as tmpdir:
             filename = os.path.join(tmpdir, "non-existing.conf")
             with open(filename, "w") as stream:
                 stream.write(" sdds: sdss : ")

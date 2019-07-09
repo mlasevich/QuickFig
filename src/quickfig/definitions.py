@@ -1,6 +1,6 @@
 ''' Config Item Definitions '''
 
-from quickfig.data_types import DEFAULT_TYPE_RESOLVER, DEFAULT_DATA_TYPE
+from .data_types import DEFAULT_TYPE_RESOLVER, DEFAULT_DATA_TYPE
 
 DEFAULT_DEFINITION = {'type': 'str', 'default': '', 'desc': ''}
 

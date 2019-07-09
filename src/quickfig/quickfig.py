@@ -80,7 +80,8 @@ class QuickFigNode(object):
         dump = "#QuickFig Config\n"
         if self._path:
             dump += "#\n# Path: %s\n#\n" % self._path
-        for key, value in self._data.items():
+        for key in sorted(self._data.keys()):
+            value = self._data[key]
             param = key
             if self._path:
                 if not param.startswith("%s." % self._path):
@@ -108,7 +109,7 @@ class QuickFig(QuickFigNode):
         self._defs = {}
         self._root_data = {}
         self.quickfig_load(config)
-        super().__init__(resolver=resolver)
+        QuickFigNode.__init__(self, resolver=resolver)
 
     def _load_definitions(self, definitions):
         ''' Load Definitions '''

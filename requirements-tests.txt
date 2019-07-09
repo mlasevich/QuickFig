@@ -1,6 +1,6 @@
 # Unit test reqirements
-fakeredis
 mock
 pylint
 pytest-cov
 six
+backports.tempfile

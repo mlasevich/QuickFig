@@ -6,7 +6,7 @@ from .type_converters import to_int, from_int
 from .type_converters import to_str, from_str
 
 
-class QuickFigDataType:
+class QuickFigDataType(object):
     ''' Configuration Node Type '''
 
     def __init__(self, name, type_class, **kwargs):
@@ -64,7 +64,7 @@ DEFAULT_DATA_TYPE = STRING_DATA_TYPE
 PARENT_DATA_TYPE = DICT_DATA_TYPE
 
 
-class ConfDataTypeResolver:
+class ConfDataTypeResolver(object):
     ''' Tool for tracking known ConfigNode Types '''
 
     def __init__(self, *types):

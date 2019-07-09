@@ -1,3 +1,3 @@
 ''' QuickFig Configuration Utility '''
 
-from quickfig.quickfig import QuickFig, QuickFigNode
+from .quickfig import QuickFig, QuickFigNode
