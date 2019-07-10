@@ -1,8 +1,11 @@
 ''' Config Item Definitions '''
 
+import os
+
 from .data_types import DEFAULT_TYPE_RESOLVER, DEFAULT_DATA_TYPE
 
-DEFAULT_DEFINITION = {'type': 'str', 'default': '', 'desc': ''}
+
+DEFAULT_DEFINITION = {'type': 'str', 'default': '', 'desc': '', 'env': []}
 
 
 class QuickFigDefinition(object):
@@ -38,6 +41,23 @@ class QuickFigDefinition(object):
             dtype = self.data_type
             desc = "%s parameter" % dtype.type_name
         return desc
+
+    @property
+    def env(self):
+        ''' Get list of environment variables '''
+        env_vars = self.definition.get('env', [])
+        if isinstance(env_vars, str):
+            return [env_vars]
+        if isinstance(env_vars, list):
+            return env_vars
+        return []
+
+    def from_env(self):
+        ''' Get value from environment variable, if set, else return '''
+        for env_variable in self.env:
+            if env_variable in os.environ:
+                return self.convert_to(os.environ[env_variable])
+        return None
 
     def convert_to(self, value):
         ''' Convert to '''

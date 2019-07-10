@@ -1,6 +1,6 @@
 ''' Unit Tests For QuickFig Definitions '''
-
 import logging
+import os
 import unittest
 
 from .data_types import BOOL_DATA_TYPE
@@ -47,6 +47,94 @@ class TestQuickFigDefinitions(unittest.TestCase):
             DEFAULT_TYPE_RESOLVER, None).type, "str")
         self.assertEqual(get_default_definition(
             DEFAULT_TYPE_RESOLVER, BOOL_DATA_TYPE).type, "bool")
+
+    def test_value_from_envs(self):
+        ''' Test getting value from env variable '''
+        definition_dict = {'type': 'int', 'default': 1,
+                           'env': ['TEST_INT1', 'TEST_INT2']}
+        definition = QuickFigDefinition(definition_dict)
+        if 'TEST_INT1' in os.environ:
+            del os.environ['TEST_INT1']
+        if 'TEST_INT2' in os.environ:
+            del os.environ['TEST_INT2']
+
+        actual = definition.default
+        expected = 1
+        self.assertEqual(actual, expected)
+        self.assertEqual(type(actual), type(expected))
+
+        self.assertIsNone(definition.from_env())
+
+        # Set one variable
+        os.environ['TEST_INT2'] = "5"
+
+        actual = definition.from_env()
+        expected = 5
+        self.assertEqual(actual, expected)
+        self.assertEqual(type(actual), type(expected))
+
+        del os.environ['TEST_INT2']
+
+        # Set one variable
+        os.environ['TEST_INT1'] = "8"
+
+        actual = definition.from_env()
+        expected = 8
+        self.assertEqual(actual, expected)
+        self.assertEqual(type(actual), type(expected))
+
+        os.environ['TEST_INT2'] = "15"
+
+        actual = definition.from_env()
+        expected = 8
+        self.assertEqual(actual, expected)
+        self.assertEqual(type(actual), type(expected))
+
+    def test_value_from_env(self):
+        ''' Test getting value from env variable when set as a  string '''
+        definition_dict = {'type': 'int', 'default': 1,
+                           'env': 'TEST_INT1'}
+        definition = QuickFigDefinition(definition_dict)
+        if 'TEST_INT1' in os.environ:
+            del os.environ['TEST_INT1']
+
+        actual = definition.default
+        expected = 1
+        self.assertEqual(actual, expected)
+        self.assertEqual(type(actual), type(expected))
+
+        self.assertIsNone(definition.from_env())
+
+        # Set one variable
+        os.environ['TEST_INT1'] = "5"
+
+        actual = definition.from_env()
+        expected = 5
+        self.assertEqual(actual, expected)
+        self.assertEqual(type(actual), type(expected))
+
+    def test_value_from_bad_env(self):
+        ''' Test getting value from env variable when set as a  string '''
+        definition_dict = {'type': 'int', 'default': 1,
+                           'env': None}
+        definition = QuickFigDefinition(definition_dict)
+        if 'TEST_INT1' in os.environ:
+            del os.environ['TEST_INT1']
+
+        actual = definition.default
+        expected = 1
+        self.assertEqual(actual, expected)
+        self.assertEqual(type(actual), type(expected))
+
+        self.assertIsNone(definition.from_env())
+
+        # Set one variable
+        os.environ['TEST_INT1'] = "5"
+
+        actual = definition.from_env()
+        expected = None
+        self.assertEqual(actual, expected)
+        self.assertEqual(type(actual), type(expected))
 
 
 if __name__ == '__main__':

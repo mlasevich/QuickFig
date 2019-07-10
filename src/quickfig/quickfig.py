@@ -128,7 +128,10 @@ class QuickFig(QuickFigNode):
             for param, def_dict in definitions.items():
                 definition = QuickFigDefinition(def_dict)
                 self._defs[param] = definition
-                self.set(param, definition.default)
+                value = definition.from_env()
+                if value is None:
+                    value = definition.default
+                self.set(param, value)
 
     def quickfig_load(self, config):
         ''' Load configuration'''
