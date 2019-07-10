@@ -447,59 +447,58 @@ your app.
 
         * Enable debug mode via env variable
 
-            $ DEBUG=yes ./full_example.py
-            ------------------------------------------------------------
-            ----                    Starting...                     ----
-            ------------------------------------------------------------
-            Debug Mode is: on
-            Total Config: 
-            #QuickFig Config
-            
-            # Component 1 Enabled Flag (Default: 'False')
-            app.component1.enabled = True
-            
-            # Component 1 Hostname (Default: 'google.com')
-            app.component1.host = yahoo.com
-            
-            # Component 1 Port Number (Default: '443')
-            app.component1.port = 443
-            
-            # Delay in seconds for component 2 to startup (Default: '0.5')
-            app.component2.delay = 1.0
-            
-            # Component 2 Enabled Flag (Default: 'False')
-            app.component2.enabled = False
-            
-            # General Debug Flag (Default: 'False')
-            debug = True
-            
-            #End QuickFig Config
-            
-            ------------------------------------------------------------
-            ----                    Component 1                     ----
-            ------------------------------------------------------------
-            Starting component 1
-            Connecting to: yahoo.com:443
-            Component 1 Config:
-            #QuickFig Config
-            #
-            # Path: app.component1
-            #
-            
-            # Component 1 Enabled Flag (Default: 'False')
-            enabled = True
-            
-            # Component 1 Hostname (Default: 'google.com')
-            host = yahoo.com
-            
-            # Component 1 Port Number (Default: '443')
-            port = 443
-            
-            #End QuickFig Config
-            
-            ------------------------------------------------------------
-            ----                      Finished                      ----
-            ------------------------------------------------------------
+                ------------------------------------------------------------
+                ----                    Starting...                     ----
+                ------------------------------------------------------------
+                Debug Mode is: on
+                Total Config: 
+                #QuickFig Config
+                
+                # Component 1 Enabled Flag (Default: 'False')
+                app.component1.enabled = True
+                
+                # Component 1 Hostname (Default: 'google.com')
+                app.component1.host = yahoo.com
+                
+                # Component 1 Port Number (Default: '443')
+                app.component1.port = 443
+                
+                # Delay in seconds for component 2 to startup (Default: '0.5')
+                app.component2.delay = 1.0
+                
+                # Component 2 Enabled Flag (Default: 'False')
+                app.component2.enabled = False
+                
+                # General Debug Flag (Default: 'False')
+                debug = True
+                
+                #End QuickFig Config
+                
+                ------------------------------------------------------------
+                ----                    Component 1                     ----
+                ------------------------------------------------------------
+                Starting component 1
+                Connecting to: yahoo.com:443
+                Component 1 Config:
+                #QuickFig Config
+                #
+                # Path: app.component1
+                #
+                
+                # Component 1 Enabled Flag (Default: 'False')
+                enabled = True
+                
+                # Component 1 Hostname (Default: 'google.com')
+                host = yahoo.com
+                
+                # Component 1 Port Number (Default: '443')
+                port = 443
+                
+                #End QuickFig Config
+                
+                ------------------------------------------------------------
+                ----                      Finished                      ----
+                ------------------------------------------------------------
 
 ### API:
 
