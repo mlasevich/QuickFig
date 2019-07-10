@@ -14,11 +14,9 @@ class TestQuickFigDefinitions(unittest.TestCase):
 
     def setUp(self):
         ''' Test SetUp '''
-        pass
 
     def tearDown(self):
         ''' Test TearDown '''
-        pass
 
     def test_repr(self):
         ''' Test __repr__() '''
