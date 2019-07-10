@@ -59,10 +59,11 @@ class QuickFigNode(object):
 
     def get_definition(self, key, test_value="", default_dtype=None):
         ''' Get Definition for key '''
+
         path = self._full_key(key)
         if not default_dtype:
             default_dtype = self._resolver.by_value(test_value)
-        definition = self._defs.get(path, None)
+        definition = self.definitions.get(path, None)
         if not definition:
             definition = get_default_definition(self._resolver, default_dtype)
         return definition
@@ -74,6 +75,16 @@ class QuickFigNode(object):
         if param in data:
             return self.get(key, use_definition_default=True)
         return self.section(key)
+
+    @property
+    def definitions(self):
+        ''' Return definitions '''
+        if self._root:
+            return self._root._defs
+        if isinstance(self, QuickFig):
+            return self._defs
+        LOG.debug("Unable to find definitions..")
+        return {}
 
     def __repr__(self):
         ''' Dump Config '''
@@ -88,7 +99,7 @@ class QuickFigNode(object):
                     LOG.debug("Skipping non-matching parameter")
                     continue
                 param = key[len(self._path) + 1:]
-            definition = self.get_definition(key, test_value=value)
+            definition = self.get_definition(param, test_value=value)
             dump += "\n# %s (Default: '%s')\n" % (
                 definition.desc.replace('\n', '\n#  '),
                 definition.default)

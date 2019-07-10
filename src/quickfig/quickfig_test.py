@@ -5,9 +5,8 @@ import os
 import tempfile
 import unittest
 
-import yaml
-
 from backports.tempfile import TemporaryDirectory
+import yaml
 
 from . import QuickFig, QuickFigNode
 from .data_types import INT_DATA_TYPE, BOOL_DATA_TYPE, STRING_DATA_TYPE
@@ -68,7 +67,10 @@ CONF_TEST_DICT_REPR = '''
 # Path: test
 #
 
-# bool parameter (Default: 'False')
+# my
+#  multiline
+#  description
+#   (Default: 'False')
 bool = True
 
 # str parameter (Default: '')
@@ -77,19 +79,19 @@ dict.item1 = one
 # str parameter (Default: '')
 dict.item2 = two
 
-# float parameter (Default: '0.0')
+# float parameter (Default: '-1.0')
 float = 1.1
 
 # float parameter (Default: '0.0')
 float2 = 2.2
 
-# int parameter (Default: '0')
+# My Integer Parameter (Default: '-1')
 int = 1
 
-# int parameter (Default: '0')
+# int parameter (Default: '2')
 int2 = 2
 
-# str parameter (Default: '')
+# String Parameter (Default: 'first test string')
 string = value
 
 #End QuickFig Config
@@ -164,6 +166,7 @@ class TestQuickFig(unittest.TestCase):
         ''' Test __repr___() on node '''
         section = self.config.section('test')
         actual = "%s" % section
+        print("---\n\n%s\n\n---" % actual)
         expected = CONF_TEST_DICT_REPR
         self.assertEqual(actual.strip(), expected.strip())
 
